@@ -13,11 +13,11 @@
     --popover: hsl(228 9% 11%);
     --popover-foreground: hsl(210 40% 98%);
 
-    /* --primary: hsl(252 100% 69%); */
-    /* --primary-dark: hsl(252 59% 48%); */
+    /* --primary: hsl(252 100% 69%);
+    --primary-dark: hsl(251 37% 17%); */
 
     --primary: hsl(36 96% 59%);
-    --primary-dark: hsl(36 47% 26%);
+    --primary-dark: hsl(35 37% 17%);
     --primary-foreground: hsl(0 0% 100%);
 
 
