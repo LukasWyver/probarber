@@ -1,17 +1,20 @@
 import { format } from 'date-fns'
 import { ptBR } from "date-fns/locale/pt-BR";
 
-
 import Header from "@/_components/header";
 import Search from './_components/search';
 import BookingItem from '@/_components/booking-item';
+import { db } from '@/_lib/prisma';
+import BarbershopItem from './_components/barbershop-item';
 
-export default function Home() {
+export default async function Home() {
+const barbershops = await db.barbershop.findMany({})
+
   return (
     <div>      
       <Header />
 
-      <div id="greetings" className="px-5 pt-5">
+      <div id="greetings" className="px-5 pt-5 space-y-1">
         <h2 className="text-xl font-bold">Olá, Lucas!</h2>
         <p className="capitalize text-sm">
           {format(new Date(), "EEEE',' dd 'de' MMMM",{
@@ -25,8 +28,18 @@ export default function Home() {
       </div>
 
       <div className="px-5 mt-6">
-        <h2 className='text-xs uppercase text-muted-foreground font-bold mb-3'>Agendamentos</h2>
+        <h2 className="text-xs uppercase text-muted-foreground font-bold mb-3">Agendamentos</h2>
         <BookingItem />
+      </div>
+
+      <div className="mt-6">
+        <h2 className="px-5 text-xs uppercase text-muted-foreground font-bold mb-3">Recomendados</h2>
+       
+        <div className="px-5 flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+          {barbershops.map((barbershop) => (
+            <BarbershopItem key={barbershop.id} barbershop={barbershop}/>            
+          ))}
+        </div>
       </div>
     </div>
   );
