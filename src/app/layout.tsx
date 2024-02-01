@@ -1,14 +1,18 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
+import type { Metadata } from "next";
+import { Nunito } from "next/font/google";
 import Footer from "@/_components/footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PRO Barber",
+  title: {
+    template: '%s | PRO Barber',
+    default: 'PRO Barber',
+  },
   description: "Sua plataforma de agendamentos em barbearias",
-};
+  metadataBase: new URL('http://localhost:3000'),
+}
 
 export default function RootLayout({
   children,
@@ -17,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${inter.className} dark`}>
+      <body className={`${nunito.className} dark`}>
         {children}
         <Footer />
       </body>
