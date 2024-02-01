@@ -2,6 +2,7 @@ import { db } from '@/_lib/prisma';
 
 import { Separator } from '@/_components/ui/separator';
 import BarbershopInfo from './_components/barbershop-info';
+import ServiceItem from './_components/service-item';
 
 interface BarbershopsDetailsPageProps {
   params: {
@@ -18,8 +19,12 @@ export default async function BarbershopsDetailsPage({ params }: BarbershopsDeta
   const barbershop = await db.barbershop.findUnique({
     where: {
       id: params.id
+    },
+    include: {
+      services: true
     }
   })
+
 
   if(!barbershop){
     // TODO: redirecionar para home page
@@ -29,6 +34,12 @@ export default async function BarbershopsDetailsPage({ params }: BarbershopsDeta
       <div>
         <BarbershopInfo barbershop={barbershop}/>
         <Separator />
+
+        <div className="flex flex-col gap-4 px-5 py-6">
+          {barbershop.services.map((service) => (
+              <ServiceItem service={service} key={service.id}/>
+          ))}
+        </div>
       </div>
     );
   }

@@ -7,11 +7,11 @@ import { ChevronLeftIcon, MapPinIcon, MenuIcon, StarIcon } from 'lucide-react';
 
 import { Button } from '@/_components/ui/button';
 
-interface BarbershopItemProps {
+interface BarbershopInfoProps {
   barbershop: Barbershop;
 }
 
-export default function BarbershopInfo({barbershop}: BarbershopItemProps) {
+export default function BarbershopInfo({barbershop}: BarbershopInfoProps) {
   const router = useRouter()
 
   function handleBackClick() {
