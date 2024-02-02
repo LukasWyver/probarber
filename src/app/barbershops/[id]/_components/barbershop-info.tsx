@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 import { ChevronLeftIcon, MapPinIcon, MenuIcon, StarIcon } from 'lucide-react';
 
 import { Button } from '@/_components/ui/button';
+import { Sheet, SheetContent, SheetTrigger } from "@/_components/ui/sheet";
+
+import SideMenu from "@/_components/side-menu";
 
 interface BarbershopInfoProps {
   barbershop: Barbershop;
@@ -23,11 +26,20 @@ export default function BarbershopInfo({barbershop}: BarbershopInfoProps) {
       <div className='h-[258px] w-full relative'>
           <Button onClick={handleBackClick} size="icon" variant="outline" className='z-50 absolute top-4 left-4'>
             <ChevronLeftIcon />
-          </Button>
+          </Button>          
 
-          <Button size="icon" variant="outline" className='z-50 absolute top-4 right-4'>
-            <MenuIcon />
-          </Button>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button size="icon" variant="outline" className='z-50 absolute top-4 right-4'>
+                <MenuIcon size={20} />
+              </Button>
+            </SheetTrigger>
+
+            <SheetContent className="p-0">
+              <SideMenu />          
+            </SheetContent>
+          </Sheet>
+
           <Image 
             fill
             alt={barbershop.name}
