@@ -1,6 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
+import { AuthProvider } from "@/_providers/auth";
+
 import Footer from "@/_components/footer";
 
 const nunito = Nunito({ subsets: ["latin"] });
@@ -22,8 +24,10 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${nunito.className} dark`}>
-        {children}
-        <Footer />
+        <AuthProvider>
+          {children}
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
