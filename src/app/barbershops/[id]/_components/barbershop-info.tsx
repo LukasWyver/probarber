@@ -45,7 +45,7 @@ export default function BarbershopInfo({barbershop}: BarbershopInfoProps) {
             <p className='text-sm'>{barbershop.address}</p>
           </div>
 
-          <div className="flex item-center gap-1 mt-2">
+          <div className="flex item-center gap-1.5 mt-2 pl-0.5">
             <StarIcon className='fill-primary stroke-primary' size={14}/>
             <p className='text-sm'>5,0
               <span className='text-muted-foreground ml-1'>(899 avaliações)</span>
