@@ -2,22 +2,27 @@
 
 import Image from "next/image";
 import { Service } from '@prisma/client'
+import { signIn } from "next-auth/react";
 // import { useRouter } from "next/navigation";
-import { ChevronLeftIcon, MapPinIcon, MenuIcon, StarIcon } from 'lucide-react';
 
 import { Button } from '@/_components/ui/button';
 import { Card, CardContent } from "@/_components/ui/card";
 
 interface ServiceItemProps {
-  service: Service;
+  service: Service
+  isAuthenticated?: boolean
 }
 
-export default function ServiceItem({service}: ServiceItemProps) {
+export default function ServiceItem({service, isAuthenticated}: ServiceItemProps) {
   // const router = useRouter()
 
-  // function handleBackClick() {
-  //   router.replace('/')
-  // }
+  function handleBookingClick() {
+    if(!isAuthenticated){
+      return signIn('google')
+    }
+    // router.replace('/')
+    // TODO: abrir modal de agendamentos
+  }
 
   const formatter = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
@@ -38,7 +43,7 @@ export default function ServiceItem({service}: ServiceItemProps) {
 
             <div className="flex items-center justify-between mt-2.5">
               <p className="text-primary text-sm font-bold">{formatter.format(Number(service.price))}</p>
-              <Button onClick={() => {}} variant="secondary">Reservar</Button>
+              <Button onClick={handleBookingClick} variant="secondary">Reservar</Button>
             </div>
           </div>
         </div>
