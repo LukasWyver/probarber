@@ -1,12 +1,14 @@
 "use client"
 
 import Image from "next/image";
+import { toast } from "sonner";
 import { useMemo, useState } from "react";
+import { Loader2Icon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { ptBR } from "date-fns/locale/pt-BR";
 import { Barbershop, Service } from '@prisma/client'
 import { signIn, useSession } from "next-auth/react";
 import { format, setHours, setMinutes } from "date-fns";
-// import { useRouter } from "next/navigation";
 
 import { Button } from '@/_components/ui/button';
 import { Calendar } from "@/_components/ui/calendar";
@@ -15,7 +17,6 @@ import { saveBooking } from "../_actions/save-booking";
 import { generateDayTimeList } from "../_helpers/hours";
 import { Card, CardContent } from "@/_components/ui/card";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/_components/ui/sheet";
-import { Loader2Icon, RotateCwIcon } from "lucide-react";
 
 
 interface ServiceItemProps {
@@ -25,7 +26,9 @@ interface ServiceItemProps {
 }
 
 export default function ServiceItem({service, barbershop ,isAuthenticated}: ServiceItemProps) {
+  const router = useRouter();
   const { data } = useSession()
+  const [sheetIsOpen, setSheetIsOpen] = useState(false)
   const [date, setDate] = useState<Date | undefined>(undefined)
   const [hour, setHour] = useState<String | undefined>(undefined)
   const [submitIsLoading, setSubmitIsLoading] = useState(false)
@@ -34,8 +37,6 @@ export default function ServiceItem({service, barbershop ,isAuthenticated}: Serv
     if(!isAuthenticated){
       return signIn('google')
     }
-    // router.replace('/')
-    // TODO: abrir modal de agendamentos
   }  
 
   const isBookingDisabled = !hour || !date
@@ -56,6 +57,18 @@ export default function ServiceItem({service, barbershop ,isAuthenticated}: Serv
         barbershopId: barbershop.id,
         date: newDate,
         userId: (data.user as any).id,
+      })
+      setSheetIsOpen(false)
+      setHour(undefined)
+      setDate(undefined)
+      toast("Reserva realizada com sucesso!", {
+        description: format(newDate, "'Para' dd 'de' MMMM 'às' HH':'mm'.'", {
+          locale: ptBR,
+        }),
+        action: {
+          label: "Visualizar",
+          onClick: () => router.push("/bookings"),
+        },
       })
     } catch (error) {
       console.log(error)
@@ -97,7 +110,7 @@ export default function ServiceItem({service, barbershop ,isAuthenticated}: Serv
             <div className="flex items-center justify-between mt-2.5">
               <p className="text-primary text-sm font-bold">{formatter.format(Number(service.price))}</p>
               
-              <Sheet>
+              <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
                 <SheetTrigger asChild>
                   <Button onClick={handleBookingClick} variant="secondary">Reservar</Button>
                 </SheetTrigger>

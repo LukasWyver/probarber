@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import { AuthProvider } from "@/_providers/auth";
+import { Toaster } from "@/_components/ui/sonner"
 
 import Footer from "@/_components/footer";
 
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className={`${nunito.className} dark`}>
         <AuthProvider>
           {children}
+          <Toaster/>
           <Footer />
         </AuthProvider>
       </body>
