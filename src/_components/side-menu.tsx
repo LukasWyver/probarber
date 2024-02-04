@@ -79,7 +79,7 @@ export default function SideMenu() {
           </Link>
         </Button>
 
-        {status !== 'unauthenticated' && (
+        {status === 'authenticated' && (
           <Button variant="outline" className="gap-2 justify-start" asChild>
             <Link href="/bookings">
               <CalendarDaysIcon size={16}/>
