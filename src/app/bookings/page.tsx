@@ -45,20 +45,26 @@ export default async function BookingsPage() {
   // const finishedBookings = bookings.filter(booking => isPast(booking.date))
 
   return (
-    <div>
+    <div className='h-screen max-h-[calc(100vh-130px)]'>
       <Header />
 
       <div className="px-5 py-6">
         <h1 className="text-xl font-bold">Agendamentos</h1>        
         
-        <h2 className="text-sm text-muted-foreground uppercase font-bold mt-6 mb-3">Confirmados</h2>
+        {confirmedBookings.length > 0 && (          
+          <h2 className="text-sm text-muted-foreground uppercase font-bold mt-6 mb-3">Confirmados</h2>
+        )}
+
         <div className="flex flex-col gap-3">
           {confirmedBookings.map((booking) => (
           <BookingItem key={booking.id} booking={booking}/>
           ))}
         </div>
+    
+        {finishedBookings.length > 0 && (          
+          <h2 className="text-sm text-muted-foreground uppercase font-bold mt-6 mb-3">Finalizados</h2>
+        )}
 
-        <h2 className="text-sm text-muted-foreground uppercase font-bold mt-6 mb-3">Finalizados</h2>
         <div className="flex flex-col gap-3">
           {finishedBookings.map((booking) => (
           <BookingItem key={booking.id} booking={booking}/>
