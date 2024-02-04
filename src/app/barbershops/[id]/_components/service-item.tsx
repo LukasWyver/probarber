@@ -77,7 +77,7 @@ export default function ServiceItem({service, barbershop ,isAuthenticated}: Serv
       setHour(undefined)
       setDate(undefined)
       toast("Reserva realizada com sucesso!", {
-        description: format(newDate, "'Para' dd 'de' MMMM 'às' HH':'mm'.'", {
+        description: format(newDate, "'para' dd 'de' MMMM 'às' HH':'mm'.'", {
           locale: ptBR,
         }),
         action: {

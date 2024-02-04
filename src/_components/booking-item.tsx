@@ -16,6 +16,7 @@ import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle, 
 
 import { cancelBooking } from "@/_actions/cancel-booking";
 import { Loader2Icon } from "lucide-react";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./ui/alert-dialog";
 
 interface BookingItemProps {
   booking: Prisma.BookingGetPayload<{
@@ -158,21 +159,32 @@ export default function BookingItem({ booking }: BookingItemProps) {
               <Button className="w-full" variant="secondary">
                 Voltar
               </Button>
-            </SheetClose>
+            </SheetClose>            
 
-            <Button 
-              className="w-full"
-              variant="destructive"
-              onClick={handleCancelClick}
-              disabled={isBookingFinished || isDeleteLoading}
-            >
-              {isDeleteLoading ? (
-                <>
-                  <Loader2Icon className="mr-2 h-4 w-4 animate-spin"/>
-                  Cancelando
-                </>
-              ) : 'Cancelar Reserva'}
-            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button className="w-full" variant="destructive" disabled={isBookingFinished || isDeleteLoading}>
+                  Cancelar Reserva
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="w-[90%]">
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Deseja mesmo cancelar essa reserva?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Uma vez cancelada, não será possível reverter essa ação.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter className="flex-row gap-3">
+                  <AlertDialogCancel className="w-full mt-0">Voltar</AlertDialogCancel>
+                  <AlertDialogAction disabled={isDeleteLoading} className="w-full" onClick={handleCancelClick}>
+                    {isDeleteLoading && <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />}
+                    Confirmar
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+
+            
           </SheetFooter>
         </div>
 
