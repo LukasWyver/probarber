@@ -1,8 +1,8 @@
 import { db } from '@/_lib/prisma';
 
+import { authOptions } from '@/_lib/auth';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 import Header from '@/_components/header';
 import BookingItem from '@/_components/booking-item';

@@ -1,8 +1,9 @@
 import { db } from '@/_lib/prisma';
-import { getServerSession } from 'next-auth';
+import { authOptions } from '@/_lib/auth';
 import { format, isFuture } from 'date-fns'
+import { getServerSession } from 'next-auth';
 import { ptBR } from "date-fns/locale/pt-BR";
-import { authOptions } from '../api/auth/[...nextauth]/route';
+
 
 import Header from "@/_components/header";
 import Search from './_components/search';
