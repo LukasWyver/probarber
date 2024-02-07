@@ -45,7 +45,7 @@ export default async function BookingsPage() {
   // const finishedBookings = bookings.filter(booking => isPast(booking.date))
 
   return (
-    <div className='h-screen max-h-[calc(100vh-130px)]'>
+    <div>
       <Header />
 
       <div className="px-5 py-6">
