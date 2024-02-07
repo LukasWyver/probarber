@@ -7,8 +7,8 @@ import { useRouter } from "next/navigation";
 import { ptBR } from "date-fns/locale/pt-BR";
 import { signIn, useSession } from "next-auth/react";
 import { useEffect, useMemo, useState } from "react";
-import { format, setHours, setMinutes } from "date-fns";
 import { Barbershop, Booking, Service } from '@prisma/client'
+import { addDays, format, setHours, setMinutes } from "date-fns";
 
 import { Button } from '@/_components/ui/button';
 import { Calendar } from "@/_components/ui/calendar";
@@ -162,7 +162,7 @@ export default function ServiceItem({service, barbershop ,isAuthenticated}: Serv
                     locale={ptBR}
                     selected={date}
                     className="my-6 "
-                    fromDate={new Date()}
+                    fromDate={addDays(new Date(), 1)}
                     onSelect={handleDateClick} 
                     styles={{
                       head_cell: {
