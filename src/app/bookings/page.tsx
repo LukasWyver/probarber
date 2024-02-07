@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { db } from '@/_lib/prisma';
 
 import { authOptions } from '@/_lib/auth';
@@ -6,6 +7,10 @@ import { getServerSession } from 'next-auth';
 
 import Header from '@/_components/header';
 import BookingItem from '@/_components/booking-item';
+
+export const metadata: Metadata = {
+  title: 'Agendamentos',
+}
 
 export default async function BookingsPage() {
   const session = await getServerSession(authOptions)

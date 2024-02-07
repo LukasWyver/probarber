@@ -1,14 +1,18 @@
+import { Metadata } from 'next';
 import { db } from '@/_lib/prisma';
 import { authOptions } from '@/_lib/auth';
 import { format, isFuture } from 'date-fns'
 import { getServerSession } from 'next-auth';
 import { ptBR } from "date-fns/locale/pt-BR";
 
-
 import Header from "@/_components/header";
-import Search from './_components/search';
+import Search from '@/_components/search';
 import BookingItem from '@/_components/booking-item';
-import BarbershopItem from './_components/barbershop-item';
+import BarbershopItem from '@/_components/barbershop-item';
+
+export const metadata: Metadata = {
+  title: 'Home',
+}
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
@@ -71,7 +75,9 @@ export default async function Home() {
        
         <div className="px-5 flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
           {recommendedBarbershops.map((barbershop) => (
-            <BarbershopItem key={barbershop.id} barbershop={barbershop}/>            
+            <div key={barbershop.id} className="min-w-[167px] max-w-[167px]">
+              <BarbershopItem barbershop={barbershop}/>
+            </div>
           ))}
         </div>
       </div>
@@ -81,7 +87,9 @@ export default async function Home() {
        
         <div className="px-5 flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
           {barbershops.map((barbershop) => (
-            <BarbershopItem key={barbershop.id} barbershop={barbershop}/>            
+            <div key={barbershop.id} className="min-w-[167px] max-w-[167px]">
+              <BarbershopItem barbershop={barbershop}/>
+            </div>
           ))}
         </div>
       </div>
